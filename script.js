@@ -1,15 +1,15 @@
 document.addEventListener("DOMContentLoaded", () => {
 
-    // Tech Canvas Background (Digital Nodes/Network)
+    // Tech Canvas Background (Enhanced with glow, mouse ripple, more particles)
     function initTechBackground() {
         const canvas = document.getElementById('tech-canvas');
         if (!canvas) return;
         const ctx = canvas.getContext('2d');
 
         let width, height, particles;
-        const particleCount = 100;
-        const connectionDistance = 150;
-        const mouse = { x: null, y: null, radius: 150 };
+        const particleCount = 150;
+        const connectionDistance = 180;
+        const mouse = { x: null, y: null, radius: 200 };
 
         window.addEventListener('mousemove', (e) => {
             mouse.x = e.x;
@@ -27,18 +27,16 @@ document.addEventListener("DOMContentLoaded", () => {
                 this.y = Math.random() * height;
                 this.baseX = this.x;
                 this.baseY = this.y;
-                this.vx = (Math.random() - 0.5) * 0.5;
-                this.vy = (Math.random() - 0.5) * 0.5;
-                this.size = Math.random() * 2 + 1;
+                this.vx = (Math.random() - 0.5) * 0.6;
+                this.vy = (Math.random() - 0.5) * 0.6;
+                this.size = Math.random() * 2.5 + 0.5;
                 this.density = (Math.random() * 30) + 1;
+                this.color = Math.random() > 0.5 
+                    ? `rgba(0, 242, 255, ${Math.random() * 0.5 + 0.3})` 
+                    : `rgba(112, 0, 255, ${Math.random() * 0.4 + 0.2})`;
             }
 
             update() {
-                // Return to base position
-                // this.x += this.vx;
-                // this.y += this.vy;
-
-                // Mouse interaction
                 let dx = mouse.x - this.x;
                 let dy = mouse.y - this.y;
                 let distance = Math.sqrt(dx * dx + dy * dy);
@@ -54,16 +52,15 @@ document.addEventListener("DOMContentLoaded", () => {
                     this.y -= directionY;
                 } else {
                     if (this.x !== this.baseX) {
-                        let dx = this.x - this.baseX;
-                        this.x -= dx / 10;
+                        let dx2 = this.x - this.baseX;
+                        this.x -= dx2 / 10;
                     }
                     if (this.y !== this.baseY) {
-                        let dy = this.y - this.baseY;
-                        this.y -= dy / 10;
+                        let dy2 = this.y - this.baseY;
+                        this.y -= dy2 / 10;
                     }
                 }
 
-                // Normal movement
                 this.baseX += this.vx;
                 this.baseY += this.vy;
                 if (this.baseX < 0 || this.baseX > width) this.vx *= -1;
@@ -71,10 +68,13 @@ document.addEventListener("DOMContentLoaded", () => {
             }
 
             draw() {
-                ctx.fillStyle = 'rgba(0, 242, 255, 0.5)';
+                ctx.fillStyle = this.color;
+                ctx.shadowBlur = 15;
+                ctx.shadowColor = this.color;
                 ctx.beginPath();
                 ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
                 ctx.fill();
+                ctx.shadowBlur = 0;
             }
         }
 
@@ -88,7 +88,17 @@ document.addEventListener("DOMContentLoaded", () => {
 
         function animate() {
             ctx.clearRect(0, 0, width, height);
-            
+
+            // Draw mouse glow
+            if (mouse.x && mouse.y) {
+                const gradient = ctx.createRadialGradient(mouse.x, mouse.y, 0, mouse.x, mouse.y, 200);
+                gradient.addColorStop(0, 'rgba(0, 242, 255, 0.08)');
+                gradient.addColorStop(0.5, 'rgba(112, 0, 255, 0.03)');
+                gradient.addColorStop(1, 'transparent');
+                ctx.fillStyle = gradient;
+                ctx.fillRect(0, 0, width, height);
+            }
+
             for (let i = 0; i < particles.length; i++) {
                 const p1 = particles[i];
                 p1.update();
@@ -101,8 +111,9 @@ document.addEventListener("DOMContentLoaded", () => {
                     const dist = Math.sqrt(dx * dx + dy * dy);
 
                     if (dist < connectionDistance) {
-                        ctx.strokeStyle = `rgba(0, 242, 255, ${1 - dist / connectionDistance})`;
-                        ctx.lineWidth = 0.5;
+                        const opacity = 1 - dist / connectionDistance;
+                        ctx.strokeStyle = `rgba(0, 242, 255, ${opacity * 0.4})`;
+                        ctx.lineWidth = opacity * 1.5;
                         ctx.beginPath();
                         ctx.moveTo(p1.x, p1.y);
                         ctx.lineTo(p2.x, p2.y);
@@ -119,7 +130,59 @@ document.addEventListener("DOMContentLoaded", () => {
     }
     initTechBackground();
 
-    // Custom Cursor Logic
+    // Cursor Trail Effect
+    function initCursorTrail() {
+        const canvas = document.getElementById('cursor-canvas');
+        if (!canvas) return;
+        const ctx = canvas.getContext('2d');
+        canvas.width = window.innerWidth;
+        canvas.height = window.innerHeight;
+
+        const trail = [];
+        const maxTrailLength = 30;
+
+        window.addEventListener('resize', () => {
+            canvas.width = window.innerWidth;
+            canvas.height = window.innerHeight;
+        });
+
+        window.addEventListener('mousemove', (e) => {
+            trail.push({ x: e.clientX, y: e.clientY, life: 1 });
+            if (trail.length > maxTrailLength) trail.shift();
+        });
+
+        function animateTrail() {
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+            
+            for (let i = 0; i < trail.length; i++) {
+                const point = trail[i];
+                point.life -= 0.025;
+
+                if (point.life <= 0) {
+                    trail.splice(i, 1);
+                    i--;
+                    continue;
+                }
+
+                const size = point.life * 4;
+                const gradient = ctx.createRadialGradient(point.x, point.y, 0, point.x, point.y, size * 3);
+                gradient.addColorStop(0, `rgba(0, 242, 255, ${point.life * 0.5})`);
+                gradient.addColorStop(0.5, `rgba(112, 0, 255, ${point.life * 0.2})`);
+                gradient.addColorStop(1, 'transparent');
+
+                ctx.fillStyle = gradient;
+                ctx.beginPath();
+                ctx.arc(point.x, point.y, size * 3, 0, Math.PI * 2);
+                ctx.fill();
+            }
+
+            requestAnimationFrame(animateTrail);
+        }
+        animateTrail();
+    }
+    initCursorTrail();
+
+    // Custom Cursor Logic (Enhanced with click pulse)
     function initCustomCursor() {
         const dot = document.querySelector('.cursor-dot');
         const outline = document.querySelector('.cursor-outline');
@@ -131,21 +194,81 @@ document.addEventListener("DOMContentLoaded", () => {
             dot.style.left = `${posX}px`;
             dot.style.top = `${posY}px`;
 
-            // Delayed outline
             outline.animate({
                 left: `${posX}px`,
                 top: `${posY}px`
             }, { duration: 500, fill: "forwards" });
         });
 
+        // Click effect — pulse
+        window.addEventListener('mousedown', () => {
+            dot.style.transform = 'translate(-50%, -50%) scale(2)';
+            dot.style.backgroundColor = '#7000ff';
+            outline.style.borderColor = '#7000ff';
+        });
+        window.addEventListener('mouseup', () => {
+            dot.style.transform = 'translate(-50%, -50%) scale(1)';
+            dot.style.backgroundColor = '';
+            outline.style.borderColor = '';
+        });
+
         // Hover effect for interactive elements
-        const interactiveElements = document.querySelectorAll('a, button, .skill-toggle, .cert-toggle, .project-card, .hover-lift');
+        const interactiveElements = document.querySelectorAll('a, button, .skill-toggle, .cert-toggle, .project-card, .hover-lift, .nav-link');
         interactiveElements.forEach(el => {
             el.addEventListener('mouseenter', () => outline.classList.add('hover'));
             el.addEventListener('mouseleave', () => outline.classList.remove('hover'));
         });
     }
     initCustomCursor();
+
+    // Navigation Bar Logic
+    function initNavbar() {
+        const navbar = document.getElementById('navbar');
+        const hamburger = document.getElementById('nav-hamburger');
+        const navLinks = document.querySelector('.nav-links');
+        const links = document.querySelectorAll('.nav-link');
+
+        // Scroll effect — add "scrolled" class
+        window.addEventListener('scroll', () => {
+            if (window.scrollY > 50) {
+                navbar.classList.add('scrolled');
+            } else {
+                navbar.classList.remove('scrolled');
+            }
+
+            // Highlight active section
+            const sections = document.querySelectorAll('section, header');
+            let current = '';
+            sections.forEach(section => {
+                const sectionTop = section.offsetTop - 120;
+                if (window.scrollY >= sectionTop) {
+                    current = section.getAttribute('id');
+                }
+            });
+
+            links.forEach(link => {
+                link.classList.remove('active');
+                if (link.getAttribute('href') === `#${current}`) {
+                    link.classList.add('active');
+                }
+            });
+        });
+
+        // Hamburger toggle
+        hamburger.addEventListener('click', () => {
+            hamburger.classList.toggle('open');
+            navLinks.classList.toggle('open');
+        });
+
+        // Close mobile menu on link click
+        links.forEach(link => {
+            link.addEventListener('click', () => {
+                hamburger.classList.remove('open');
+                navLinks.classList.remove('open');
+            });
+        });
+    }
+    initNavbar();
 
     // Scroll Progress Bar
     function initScrollProgress() {
@@ -225,7 +348,6 @@ document.addEventListener("DOMContentLoaded", () => {
                 const span = document.createElement('span');
                 span.textContent = char;
                 span.className = 'letter';
-                // Calculate delay based on word and char index
                 const delay = (wordIndex * 5 + charIndex) * 0.1;
                 span.style.animationDelay = `${delay}s`;
                 wordSpan.appendChild(span);
@@ -314,7 +436,6 @@ document.addEventListener("DOMContentLoaded", () => {
                     container.classList.add("hidden");
                 }
 
-                // Close sibling if opening this one
                 if (siblingContainer && !siblingContainer.classList.contains("hidden") && isHidden) {
                     siblingContainer.classList.add("hidden");
                 }
@@ -334,7 +455,6 @@ document.addEventListener("DOMContentLoaded", () => {
                 const targetId = btn.getAttribute("data-target");
                 const targetContent = document.getElementById(targetId);
                 
-                // Toggle current
                 const isHidden = targetContent.classList.contains("hidden");
                 
                 if (isHidden) {
@@ -345,7 +465,6 @@ document.addEventListener("DOMContentLoaded", () => {
                     btn.classList.remove("active");
                 }
                 
-                // Close others in same group
                 toggles.forEach(otherBtn => {
                     if (otherBtn !== btn) {
                         otherBtn.classList.remove("active");
@@ -364,7 +483,7 @@ document.addEventListener("DOMContentLoaded", () => {
     setupAccordions(".skill-toggle");
     setupAccordions(".cert-toggle");
 
-    // Scroll Reveal Animation (Using Intersection Observer for better performance)
+    // Scroll Reveal Animation (Using Intersection Observer)
     const observerOptions = {
         threshold: 0.1
     };
@@ -377,7 +496,7 @@ document.addEventListener("DOMContentLoaded", () => {
         });
     }, observerOptions);
 
-    document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+    document.querySelectorAll('.reveal, .reveal-blur, .reveal-left, .reveal-right').forEach(el => observer.observe(el));
 
     // Contact Form submission override format for mailto
     const contactForm = document.getElementById("contactForm");
