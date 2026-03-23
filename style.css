@@ -1,14 +1,16 @@
 :root {
-    --bg-color: #020205; /* Deep black space */
+    --bg-color: #02040a; /* Modern Darker Blue-Black */
     --bg-accent: #0f172a;
     --text-main: #f8fafc;
     --text-muted: #94a3b8;
-    --primary: #06b6d4; /* Cyan */
-    --secondary: #8b5cf6; /* Purple */
-    --accent-glow: rgba(6, 182, 212, 0.4);
-    --glass-bg: rgba(15, 23, 42, 0.4);
-    --glass-border: rgba(255, 255, 255, 0.08);
-    --border-radius: 16px;
+    --primary: #00f2ff; /* Neon Cyan */
+    --secondary: #7000ff; /* Neon Purple */
+    --primary-glow: rgba(0, 242, 255, 0.5);
+    --secondary-glow: rgba(112, 0, 255, 0.4);
+    --glass-bg: rgba(15, 23, 42, 0.6);
+    --glass-border: rgba(255, 255, 255, 0.12);
+    --border-radius: 20px;
+    --font-main: 'Outfit', sans-serif;
 }
 
 * {
@@ -30,14 +32,30 @@ body {
     line-height: 1.6;
 }
 
-/* Starry Background Base */
-.stars-container {
+/* Tech Background */
+#tech-canvas {
     position: fixed;
-    top: 0; left: 0; width: 100vw; height: 100vh;
-    z-index: -10;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: -1;
+    background: #000;
+}
+
+.tech-theme::before {
+    content: '';
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: 
+        linear-gradient(rgba(0, 242, 255, 0.03) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(0, 242, 255, 0.03) 1px, transparent 1px);
+    background-size: 50px 50px;
+    z-index: 0;
     pointer-events: none;
-    overflow: hidden;
-    background: radial-gradient(ellipse at bottom, #0d1222 0%, #000000 100%);
 }
 
 .star {
@@ -257,15 +275,67 @@ body {
 }
 
 .name-title {
-    font-size: 6rem;
+    font-size: 6.5rem;
     font-weight: 900;
-    margin-bottom: 5px;
+    margin-bottom: 20px;
     letter-spacing: -2px;
-    background: linear-gradient(to right, #0fc, #0cf, #8b5cf6, #0cf, #0fc);
-    background-size: 300% 300%;
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
-    animation: gradientShift 6s ease-in-out infinite, floatText 3s ease-in-out infinite alternate;
+    color: #fff;
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+}
+
+.letter {
+    display: inline-block;
+    opacity: 0;
+    transform: translateY(20px) rotateX(-90deg);
+    filter: blur(10px);
+    animation: letterIn 0.8s cubic-bezier(0.17, 0.67, 0.83, 0.67) forwards;
+}
+
+@keyframes letterIn {
+    to {
+        opacity: 1;
+        transform: translateY(0) rotateX(0deg);
+        filter: blur(0);
+    }
+}
+
+.role-badge {
+    position: relative;
+    display: inline-block;
+    padding: 10px 30px;
+    background: rgba(0, 242, 255, 0.05);
+    border: 1px solid var(--primary-glow);
+    border-radius: 10px;
+    overflow: hidden;
+    margin-bottom: 40px;
+}
+
+.role-scanner {
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(90deg, transparent, var(--primary-glow), transparent);
+    animation: scan 3s infinite linear;
+}
+
+@keyframes scan {
+    0% { left: -100%; }
+    100% { left: 100%; }
+}
+
+.role-subtitle {
+    font-size: 1.4rem;
+    color: var(--primary);
+    margin: 0;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 4px;
+    position: relative;
+    z-index: 1;
 }
 
 @keyframes gradientShift {

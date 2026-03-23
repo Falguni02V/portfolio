@@ -8,16 +8,20 @@
     <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600;800&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 </head>
-<body>
+<body class="tech-theme">
+    <canvas id="tech-canvas"></canvas>
 
     <!-- Hero Section -->
-    <header id="home" class="section glass-section hero">
+    <header id="home" class="section hero">
         <div class="hero-content">
             <div class="profile-pic-container">
                 <img src="assets/profile.jpg.jpeg" alt="Falguni Vashistha" id="profile-img">
             </div>
-            <h1 class="name-title">Falguni Vashistha</h1>
-            <p class="role-subtitle">Full Stack Developer</p>
+            <h1 class="name-title" id="animated-name">Falguni Vashistha</h1>
+            <div class="role-badge">
+                <p class="role-subtitle">Full Stack Developer</p>
+                <div class="role-scanner"></div>
+            </div>
             
             <div class="action-buttons">
                 <button id="resume-toggle" class="btn primary-btn">Resume</button>

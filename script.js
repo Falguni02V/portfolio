@@ -1,26 +1,117 @@
 document.addEventListener("DOMContentLoaded", () => {
 
-    // Starry Background Implementation
-    function createStars() {
-        const starContainer = document.createElement('div');
-        starContainer.className = 'stars-container';
-        document.body.appendChild(starContainer);
+    // Tech Canvas Background (Digital Nodes/Network)
+    function initTechBackground() {
+        const canvas = document.getElementById('tech-canvas');
+        if (!canvas) return;
+        const ctx = canvas.getContext('2d');
 
-        for (let i = 0; i < 200; i++) {
-            const star = document.createElement('div');
-            star.className = 'star';
-            star.style.left = `${Math.random() * 100}vw`;
-            star.style.top = `${Math.random() * 100}vh`;
-            star.style.animationDuration = `${Math.random() * 4 + 1.5}s`;
-            star.style.animationDelay = `${Math.random() * 4}s`;
-            // Random sizes for depth
-            const size = Math.random() * 2.5;
-            star.style.width = `${size}px`;
-            star.style.height = `${size}px`;
-            starContainer.appendChild(star);
+        let width, height, particles;
+        const particleCount = 100;
+        const connectionDistance = 150;
+
+        function resize() {
+            width = canvas.width = window.innerWidth;
+            height = canvas.height = window.innerHeight;
         }
+
+        class Particle {
+            constructor() {
+                this.x = Math.random() * width;
+                this.y = Math.random() * height;
+                this.vx = (Math.random() - 0.5) * 0.5;
+                this.vy = (Math.random() - 0.5) * 0.5;
+                this.size = Math.random() * 2 + 1;
+            }
+
+            update() {
+                this.x += this.vx;
+                this.y += this.vy;
+
+                if (this.x < 0 || this.x > width) this.vx *= -1;
+                if (this.y < 0 || this.y > height) this.vy *= -1;
+            }
+
+            draw() {
+                ctx.fillStyle = 'rgba(0, 242, 255, 0.5)';
+                ctx.beginPath();
+                ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
+                ctx.fill();
+            }
+        }
+
+        function init() {
+            resize();
+            particles = [];
+            for (let i = 0; i < particleCount; i++) {
+                particles.push(new Particle());
+            }
+        }
+
+        function animate() {
+            ctx.clearRect(0, 0, width, height);
+            
+            for (let i = 0; i < particles.length; i++) {
+                const p1 = particles[i];
+                p1.update();
+                p1.draw();
+
+                for (let j = i + 1; j < particles.length; j++) {
+                    const p2 = particles[j];
+                    const dx = p1.x - p2.x;
+                    const dy = p1.y - p2.y;
+                    const dist = Math.sqrt(dx * dx + dy * dy);
+
+                    if (dist < connectionDistance) {
+                        ctx.strokeStyle = `rgba(0, 242, 255, ${1 - dist / connectionDistance})`;
+                        ctx.lineWidth = 0.5;
+                        ctx.beginPath();
+                        ctx.moveTo(p1.x, p1.y);
+                        ctx.lineTo(p2.x, p2.y);
+                        ctx.stroke();
+                    }
+                }
+            }
+            requestAnimationFrame(animate);
+        }
+
+        window.addEventListener('resize', resize);
+        init();
+        animate();
     }
-    createStars();
+    initTechBackground();
+
+    // Name Letter-by-Letter Animation
+    function animateName() {
+        const nameElement = document.getElementById('animated-name');
+        if (!nameElement) return;
+
+        const text = nameElement.textContent;
+        nameElement.textContent = '';
+        nameElement.style.display = 'flex';
+        nameElement.style.justifyContent = 'center';
+        nameElement.style.flexWrap = 'wrap';
+
+        const words = text.split(' ');
+        words.forEach((word, wordIndex) => {
+            const wordSpan = document.createElement('span');
+            wordSpan.style.display = 'inline-block';
+            wordSpan.style.whiteSpace = 'nowrap';
+            wordSpan.style.margin = '0 15px';
+
+            [...word].forEach((char, charIndex) => {
+                const span = document.createElement('span');
+                span.textContent = char;
+                span.className = 'letter';
+                // Calculate delay based on word and char index
+                const delay = (wordIndex * 5 + charIndex) * 0.1;
+                span.style.animationDelay = `${delay}s`;
+                wordSpan.appendChild(span);
+            });
+            nameElement.appendChild(wordSpan);
+        });
+    }
+    animateName();
 
     // Helper function to manage independent toggles
     function setupButtonToggle(btnId, containerId, siblingContainerId = null) {
@@ -88,26 +179,20 @@ document.addEventListener("DOMContentLoaded", () => {
     setupAccordions(".skill-toggle");
     setupAccordions(".cert-toggle");
 
-    // Scroll Reveal Animation Functionality
-    const reveals = document.querySelectorAll(".reveal");
+    // Scroll Reveal Animation (Using Intersection Observer for better performance)
+    const observerOptions = {
+        threshold: 0.1
+    };
 
-    function reveal() {
-        const windowHeight = window.innerHeight;
-        const elementVisible = 100; // Trigger distance from bottom of screen
-
-        reveals.forEach(el => {
-            const elementTop = el.getBoundingClientRect().top;
-            if (elementTop < windowHeight - elementVisible) {
-                el.classList.add("active");
+    const observer = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+            if (entry.isIntersecting) {
+                entry.target.classList.add('active');
             }
         });
-    }
+    }, observerOptions);
 
-    // Bind scroll event
-    window.addEventListener("scroll", reveal);
-    
-    // Trigger on load in case elements are already in view
-    setTimeout(reveal, 100);
+    document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
 
     // Contact Form submission override format for mailto
     const contactForm = document.getElementById("contactForm");
@@ -118,10 +203,8 @@ document.addEventListener("DOMContentLoaded", () => {
             const email = document.getElementById("senderEmail").value;
             const message = document.getElementById("senderMessage").value;
             
-            // Constructing basic URL encoded format
             const bodyText = `Name: ${name}%0D%0APhone: ${phone}%0D%0AEmail: ${email}%0D%0A%0D%0AMessage:%0D%0A${message}`;
             contactForm.setAttribute("action", `mailto:vashishthafalguni@gmail.com?subject=Portfolio Contact from ${name}&body=${bodyText}`);
-            // Let the form submit natively via action change
         });
     }
 });
