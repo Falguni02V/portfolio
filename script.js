@@ -377,7 +377,7 @@ document.addEventListener("DOMContentLoaded", () => {
         });
     }, observerOptions);
 
-    document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+    document.querySelectorAll('.reveal, .reveal-blur, .reveal-left, .reveal-right').forEach(el => observer.observe(el));
 
     // Contact Form submission override format for mailto
     const contactForm = document.getElementById("contactForm");
