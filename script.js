@@ -9,6 +9,12 @@ document.addEventListener("DOMContentLoaded", () => {
         let width, height, particles;
         const particleCount = 100;
         const connectionDistance = 150;
+        const mouse = { x: null, y: null, radius: 150 };
+
+        window.addEventListener('mousemove', (e) => {
+            mouse.x = e.x;
+            mouse.y = e.y;
+        });
 
         function resize() {
             width = canvas.width = window.innerWidth;
@@ -19,17 +25,49 @@ document.addEventListener("DOMContentLoaded", () => {
             constructor() {
                 this.x = Math.random() * width;
                 this.y = Math.random() * height;
+                this.baseX = this.x;
+                this.baseY = this.y;
                 this.vx = (Math.random() - 0.5) * 0.5;
                 this.vy = (Math.random() - 0.5) * 0.5;
                 this.size = Math.random() * 2 + 1;
+                this.density = (Math.random() * 30) + 1;
             }
 
             update() {
-                this.x += this.vx;
-                this.y += this.vy;
+                // Return to base position
+                // this.x += this.vx;
+                // this.y += this.vy;
 
-                if (this.x < 0 || this.x > width) this.vx *= -1;
-                if (this.y < 0 || this.y > height) this.vy *= -1;
+                // Mouse interaction
+                let dx = mouse.x - this.x;
+                let dy = mouse.y - this.y;
+                let distance = Math.sqrt(dx * dx + dy * dy);
+                let forceDirectionX = dx / distance;
+                let forceDirectionY = dy / distance;
+                let maxDistance = mouse.radius;
+                let force = (maxDistance - distance) / maxDistance;
+                let directionX = forceDirectionX * force * this.density;
+                let directionY = forceDirectionY * force * this.density;
+
+                if (distance < mouse.radius) {
+                    this.x -= directionX;
+                    this.y -= directionY;
+                } else {
+                    if (this.x !== this.baseX) {
+                        let dx = this.x - this.baseX;
+                        this.x -= dx / 10;
+                    }
+                    if (this.y !== this.baseY) {
+                        let dy = this.y - this.baseY;
+                        this.y -= dy / 10;
+                    }
+                }
+
+                // Normal movement
+                this.baseX += this.vx;
+                this.baseY += this.vy;
+                if (this.baseX < 0 || this.baseX > width) this.vx *= -1;
+                if (this.baseY < 0 || this.baseY > height) this.vy *= -1;
             }
 
             draw() {
@@ -81,6 +119,90 @@ document.addEventListener("DOMContentLoaded", () => {
     }
     initTechBackground();
 
+    // Custom Cursor Logic
+    function initCustomCursor() {
+        const dot = document.querySelector('.cursor-dot');
+        const outline = document.querySelector('.cursor-outline');
+        
+        window.addEventListener('mousemove', (e) => {
+            const posX = e.clientX;
+            const posY = e.clientY;
+
+            dot.style.left = `${posX}px`;
+            dot.style.top = `${posY}px`;
+
+            // Delayed outline
+            outline.animate({
+                left: `${posX}px`,
+                top: `${posY}px`
+            }, { duration: 500, fill: "forwards" });
+        });
+
+        // Hover effect for interactive elements
+        const interactiveElements = document.querySelectorAll('a, button, .skill-toggle, .cert-toggle, .project-card, .hover-lift');
+        interactiveElements.forEach(el => {
+            el.addEventListener('mouseenter', () => outline.classList.add('hover'));
+            el.addEventListener('mouseleave', () => outline.classList.remove('hover'));
+        });
+    }
+    initCustomCursor();
+
+    // Scroll Progress Bar
+    function initScrollProgress() {
+        const progressBar = document.querySelector('.scroll-progress');
+        window.addEventListener('scroll', () => {
+            const winScroll = document.body.scrollTop || document.documentElement.scrollTop;
+            const height = document.documentElement.scrollHeight - document.documentElement.clientHeight;
+            const scrolled = (winScroll / height) * 100;
+            progressBar.style.width = scrolled + "%";
+        });
+    }
+    initScrollProgress();
+
+    // Magnetic Elements
+    function initMagneticElements() {
+        const magneticElements = document.querySelectorAll('.magnetic');
+        magneticElements.forEach(el => {
+            el.addEventListener('mousemove', (e) => {
+                const rect = el.getBoundingClientRect();
+                const x = e.clientX - rect.left - rect.width / 2;
+                const y = e.clientY - rect.top - rect.height / 2;
+                
+                el.style.transform = `translate(${x * 0.3}px, ${y * 0.3}px)`;
+            });
+
+            el.addEventListener('mouseleave', () => {
+                el.style.transform = `translate(0px, 0px)`;
+            });
+        });
+    }
+
+    // 3D Tilt Effect
+    function initTiltEffect() {
+        const cards = document.querySelectorAll('.project-card, .timeline-item');
+        cards.forEach(card => {
+            card.addEventListener('mousemove', (e) => {
+                const rect = card.getBoundingClientRect();
+                const x = e.clientX - rect.left;
+                const y = e.clientY - rect.top;
+                
+                const centerX = rect.width / 2;
+                const centerY = rect.height / 2;
+                
+                const rotateX = (centerY - y) / 10;
+                const rotateY = (x - centerX) / 10;
+                
+                card.style.transform = `perspective(1000px) rotateX(${rotateX}deg) rotateY(${rotateY}deg) translateY(-8px)`;
+            });
+
+            card.addEventListener('mouseleave', () => {
+                card.style.transform = `perspective(1000px) rotateX(0deg) rotateY(0deg) translateY(0px)`;
+            });
+        });
+    }
+    initTiltEffect();
+    initMagneticElements();
+
     // Name Letter-by-Letter Animation
     function animateName() {
         const nameElement = document.getElementById('animated-name');
@@ -112,6 +234,69 @@ document.addEventListener("DOMContentLoaded", () => {
         });
     }
     animateName();
+
+    // Text Scramble Effect
+    class TextScramble {
+        constructor(el) {
+            this.el = el;
+            this.chars = '!<>-_\\/[]{}—=+*^?#________';
+            this.update = this.update.bind(this);
+        }
+        setText(newText) {
+            const oldText = this.el.innerText;
+            const length = Math.max(oldText.length, newText.length);
+            const promise = new Promise((resolve) => this.resolve = resolve);
+            this.queue = [];
+            for (let i = 0; i < length; i++) {
+                const from = oldText[i] || '';
+                const to = newText[i] || '';
+                const start = Math.floor(Math.random() * 40);
+                const end = start + Math.floor(Math.random() * 40);
+                this.queue.push({ from, to, start, end });
+            }
+            cancelAnimationFrame(this.frameRequest);
+            this.frame = 0;
+            this.update();
+            return promise;
+        }
+        update() {
+            let output = '';
+            let complete = 0;
+            for (let i = 0, n = this.queue.length; i < n; i++) {
+                let { from, to, start, end, char } = this.queue[i];
+                if (this.frame >= end) {
+                    complete++;
+                    output += to;
+                } else if (this.frame >= start) {
+                    if (!char || Math.random() < 0.28) {
+                        char = this.randomChar();
+                        this.queue[i].char = char;
+                    }
+                    output += `<span class="scramble-char">${char}</span>`;
+                } else {
+                    output += from;
+                }
+            }
+            this.el.innerHTML = output;
+            if (complete === this.queue.length) {
+                this.resolve();
+            } else {
+                this.frameRequest = requestAnimationFrame(this.update);
+                this.frame++;
+            }
+        }
+        randomChar() {
+            return this.chars[Math.floor(Math.random() * this.chars.length)];
+        }
+    }
+
+    // Apply Scramble to section titles
+    const scrambleElements = document.querySelectorAll('.section-title');
+    scrambleElements.forEach(el => {
+        const fx = new TextScramble(el);
+        const originalText = el.innerText;
+        el.addEventListener('mouseenter', () => fx.setText(originalText));
+    });
 
     // Helper function to manage independent toggles
     function setupButtonToggle(btnId, containerId, siblingContainerId = null) {
