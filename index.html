@@ -1,0 +1,321 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Falguni Vashistha - Portfolio</title>
+    <link rel="stylesheet" href="style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body>
+
+    <!-- Hero Section -->
+    <header id="home" class="section glass-section hero">
+        <div class="hero-content">
+            <div class="profile-pic-container">
+                <img src="assets/profile.jpg.jpeg" alt="Falguni Vashistha" id="profile-img">
+            </div>
+            <h1 class="name-title">Falguni Vashistha</h1>
+            <p class="role-subtitle">Full Stack Developer</p>
+            
+            <div class="action-buttons">
+                <button id="resume-toggle" class="btn primary-btn">Resume</button>
+                <button id="hire-toggle" class="btn secondary-btn">Hire Me</button>
+            </div>
+
+            <!-- Toggle Content Areas -->
+            <div id="resume-container" class="toggle-container hidden">
+                <div class="glass-card">
+                    <h3>My Resume</h3>
+                    <p class="text-muted mt-2 mb-3">Your resume is ready to be loaded here. Please add your resume PDF to the <strong>assets</strong> folder.</p>
+                    <a href="assets/resume.pdf.pdf" target="_blank" class="btn small-btn primary-btn mt-2"><i class="fas fa-external-link-alt mr-1"></i> View Resume</a>
+                    <a href="assets/resume.pdf.pdf" download class="btn small-btn outline mt-2 ml-2"><i class="fas fa-download mr-1"></i> Download</a>
+                </div>
+            </div>
+
+            <div id="hire-container" class="toggle-container hidden">
+                <div class="glass-card">
+                    <h3>Let's Work Together</h3>
+                    <img src="assets/hire_me_graphic.png" alt="Hire Me" class="preview-img">
+                    <p class="mt-2 text-muted">Available for exciting opportunities. Get in touch via the <a href="#contact" class="link-styled">contact section</a>.</p>
+                </div>
+            </div>
+
+            <div class="social-links">
+                <a href="https://www.linkedin.com/in/falgunivashishtha02" target="_blank" class="social-icon" title="LinkedIn"><i class="fab fa-linkedin-in"></i></a>
+                <a href="https://github.com/Falguni02V" target="_blank" class="social-icon" title="GitHub"><i class="fab fa-github"></i></a>
+                <a href="mailto:vashishthafalguni@gmail.com" class="social-icon" title="Email"><i class="fas fa-envelope"></i></a>
+            </div>
+        </div>
+    </header>
+
+    <!-- About Me Section -->
+    <section id="about" class="section">
+        <h2 class="section-title">About Me</h2>
+        <div class="glass-container about-content reveal">
+            <p>Hello! I am Falguni Vashistha, a passionate Full Stack Developer dedicated to building high-quality, scalable web applications.</p>
+            <p class="mt-2">My technical journey involves mastering modern frontend libraries, backend architectures, and continuously learning to stay at the cutting edge of technology. I believe in clean code, seamless user experiences, and bringing innovative ideas to life.</p>
+        </div>
+    </section>
+
+    <!-- Education Section -->
+    <section id="education" class="section">
+        <h2 class="section-title">Education</h2>
+        <div class="education-timeline reveal">
+            <div class="glass-card timeline-item hover-lift">
+                <div class="timeline-icon"><i class="fas fa-graduation-cap"></i></div>
+                <h4 class="text-gradient">B.Tech in Computer Science & Engineering (Full Stack)</h4>
+                <p class="font-bold text-main">Lovely Professional University</p>
+                <p class="text-sm text-muted">Phagwara, Punjab</p>
+            </div>
+            <div class="glass-card timeline-item hover-lift">
+                <div class="timeline-icon"><i class="fas fa-school"></i></div>
+                <h4 class="text-gradient">12th Grade (ISC)</h4>
+                <p class="font-bold text-main">Mount Carmel Sr. Sec. School</p>
+                <p class="text-sm text-muted">Ghaziabad, Uttar Pradesh</p>
+            </div>
+            <div class="glass-card timeline-item hover-lift">
+                <div class="timeline-icon"><i class="fas fa-book-open"></i></div>
+                <h4 class="text-gradient">10th Grade (I.C.S.E)</h4>
+                <p class="font-bold text-main">Mount Carmel Sr. Sec. School</p>
+                <p class="text-sm text-muted">Ghaziabad, Uttar Pradesh</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Technical Skills Section -->
+    <section id="skills" class="section">
+        <h2 class="section-title">Technical Skills</h2>
+        <div class="skills-grid reveal">
+            <!-- Tools Toggle -->
+            <div class="skill-category">
+                <button class="skill-toggle" data-target="tools"><i class="fas fa-tools"></i> Tools <i class="fas fa-chevron-down arrow-icon"></i></button>
+                <div id="tools" class="skill-content hidden glass-card inner-shadow">
+                    <div class="tags">
+                        <span class="tag"><i class="fab fa-git-alt text-primary mr-1"></i> Git</span>
+                        <span class="tag"><i class="fab fa-github text-primary mr-1"></i> GitHub</span>
+                        <span class="tag"><i class="fab fa-docker text-primary mr-1"></i> Docker</span>
+                        <span class="tag"><i class="fab fa-aws text-primary mr-1"></i> AWS</span>
+                        <span class="tag"><i class="fas fa-paper-plane text-primary mr-1"></i> Postman</span>
+                    </div>
+                </div>
+            </div>
+            <!-- Frontend Toggle -->
+            <div class="skill-category">
+                <button class="skill-toggle" data-target="front"><i class="fas fa-desktop"></i> Frontend <i class="fas fa-chevron-down arrow-icon"></i></button>
+                <div id="front" class="skill-content hidden glass-card inner-shadow">
+                    <div class="tags">
+                        <span class="tag"><i class="fab fa-js-square text-primary mr-1"></i> JavaScript</span>
+                        <span class="tag"><i class="fab fa-html5 text-primary mr-1"></i> HTML/CSS</span>
+                        <span class="tag"><i class="fab fa-react text-primary mr-1"></i> React.js</span>
+                        <span class="tag"><i class="fab fa-bootstrap text-primary mr-1"></i> Bootstrap</span>
+                    </div>
+                </div>
+            </div>
+            <!-- Backend Toggle -->
+            <div class="skill-category">
+                <button class="skill-toggle" data-target="back"><i class="fas fa-server"></i> Backend <i class="fas fa-chevron-down arrow-icon"></i></button>
+                <div id="back" class="skill-content hidden glass-card inner-shadow">
+                    <div class="tags">
+                        <span class="tag"><i class="fab fa-php text-primary mr-1"></i> PHP</span>
+                        <span class="tag"><i class="fab fa-node-js text-primary mr-1"></i> Node.js</span>
+                        <span class="tag"><i class="fas fa-server text-primary mr-1"></i> Express.js</span>
+                        <span class="tag"><i class="fab fa-java text-primary mr-1"></i> Java</span>
+                    </div>
+                </div>
+            </div>
+            <!-- Database Toggle -->
+            <div class="skill-category">
+                <button class="skill-toggle" data-target="db"><i class="fas fa-database"></i> Databases <i class="fas fa-chevron-down arrow-icon"></i></button>
+                <div id="db" class="skill-content hidden glass-card inner-shadow">
+                    <div class="tags">
+                        <span class="tag"><i class="fas fa-leaf text-primary mr-1"></i> MongoDB</span>
+                        <span class="tag"><i class="fas fa-database text-primary mr-1"></i> MySQL</span>
+                        <span class="tag"><i class="fas fa-seedling text-primary mr-1"></i> Mongoose</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Projects & Certifications -->
+    <section id="projects" class="section">
+        <h2 class="section-title">Projects & Certifications</h2>
+        
+        <h3 class="subsection-title subtitle-glow">My Projects</h3>
+        <div class="projects-grid reveal">
+            <!-- Project 1 -->
+            <div class="glass-card project-card hover-lift">
+                <h4>Telemedicine</h4>
+                <p>A comprehensive telemedicine application.</p>
+                <div class="project-links">
+                    <a href="https://github.com/Falguni02V/Telemedicine-Access-for-Rural-Healthcare---Nabha" target="_blank" class="btn small-btn outline flex-center"><i class="fab fa-github mr-1"></i> Code</a>
+                    <a href="https://falguni02v.github.io/Telemedicine-Access-for-Rural-Healthcare---Nabha/" target="_blank" class="btn small-btn primary-btn flex-center"><i class="fas fa-external-link-alt mr-1"></i> Live</a>
+                </div>
+            </div>
+            <!-- Project 2 -->
+            <div class="glass-card project-card hover-lift">
+                <h4>Local Business Review</h4>
+                <p>A platform to review and discover local businesses.</p>
+                <div class="project-links">
+                    <a href="https://github.com/Falguni02V/Local-Business-Review-Platform" target="_blank" class="btn small-btn outline flex-center"><i class="fab fa-github mr-1"></i> Code</a>
+                    <a href="https://falguni02v.github.io/Local-Business-Review-Platform/" target="_blank" class="btn small-btn primary-btn flex-center"><i class="fas fa-external-link-alt mr-1"></i> Live</a>
+                </div>
+            </div>
+            <!-- Project 3 -->
+            <div class="glass-card project-card hover-lift">
+                <h4>Management</h4>
+                <p>An efficient management and tracking system.</p>
+                <div class="project-links">
+                    <a href="https://github.com/Falguni02V" target="_blank" class="btn small-btn outline flex-center"><i class="fab fa-github mr-1"></i> Code</a>
+                    <a href="#" target="_blank" class="btn small-btn primary-btn flex-center"><i class="fas fa-external-link-alt mr-1"></i> Live</a>
+                </div>
+            </div>
+        </div>
+
+        <h3 class="subsection-title subtitle-glow mt-4">Certifications</h3>
+        <div class="certs-container reveal">
+            <!-- Cert 1 -->
+            <div class="cert-item">
+                <button class="cert-toggle glass-card btn-block p-3" data-target="cert1">
+                    <div>
+                        <span class="font-bold block">Training on C++ Programming : OOPs and DSA</span>
+                        <span class="text-sm text-muted">CSE pathshala</span>
+                    </div>
+                    <i class="fas fa-plus"></i>
+                </button>
+                <div id="cert1" class="cert-content hidden glass-card mt-2">
+                    <p class="mb-2">View Certificate:</p>
+                    <a href="https://drive.google.com/file/d/1cMDuoph31VwSs9KrHmrtb-lQ49lIHmkK/view?usp=sharing" target="_blank" class="btn small-btn primary-btn">Open Document</a>
+                </div>
+            </div>
+            <!-- Cert 2 -->
+            <div class="cert-item">
+                <button class="cert-toggle glass-card btn-block p-3" data-target="cert2">
+                    <div>
+                        <span class="font-bold block">Social Networks</span>
+                        <span class="text-sm text-muted">Swayam NPTEL</span>
+                    </div>
+                    <i class="fas fa-plus"></i>
+                </button>
+                <div id="cert2" class="cert-content hidden glass-card mt-2">
+                    <div class="cert-placeholder">Certificate Details Available Upon Request</div>
+                </div>
+            </div>
+            <!-- Cert 3 -->
+            <div class="cert-item">
+                <button class="cert-toggle glass-card btn-block p-3" data-target="cert3">
+                    <div>
+                        <span class="font-bold block">Computational Theory</span>
+                        <span class="text-sm text-muted">Infosys</span>
+                    </div>
+                    <i class="fas fa-plus"></i>
+                </button>
+                <div id="cert3" class="cert-content hidden glass-card mt-2">
+                    <div class="cert-placeholder">Certificate Details Available Upon Request</div>
+                </div>
+            </div>
+            <!-- Cert 4 -->
+            <div class="cert-item">
+                <button class="cert-toggle glass-card btn-block p-3" data-target="cert4">
+                    <div>
+                        <span class="font-bold block">ChatGPT-4 Prompt Engineering</span>
+                        <span class="text-sm text-muted">Infosys</span>
+                    </div>
+                    <i class="fas fa-plus"></i>
+                </button>
+                <div id="cert4" class="cert-content hidden glass-card mt-2">
+                    <p class="mb-2">View Certificate:</p>
+                    <a href="https://drive.google.com/file/d/1jQpXGRoeQaO2BM_eBt8ziES4g7zmUdXy/view?usp=sharing" target="_blank" class="btn small-btn primary-btn">Open Document</a>
+                </div>
+            </div>
+            <!-- Cert 5 -->
+            <div class="cert-item">
+                <button class="cert-toggle glass-card btn-block p-3" data-target="cert5">
+                    <div>
+                        <span class="font-bold block">Build Generative AI Apps</span>
+                        <span class="text-sm text-muted">Infosys</span>
+                    </div>
+                    <i class="fas fa-plus"></i>
+                </button>
+                <div id="cert5" class="cert-content hidden glass-card mt-2">
+                    <p class="mb-2">View Certificate:</p>
+                    <a href="https://drive.google.com/file/d/1FtMai3Rbwx_UnFfxSeKGfnv_zBxWbDVl/view?usp=sharing" target="_blank" class="btn small-btn primary-btn">Open Document</a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact Section -->
+    <section id="contact" class="section pb-5">
+        <h2 class="section-title">Get In Touch</h2>
+        <div class="contact-layout reveal">
+            <div class="contact-details glass-card">
+                <h3 class="mb-4 text-gradient">Contact Information</h3>
+                <ul class="info-list">
+                    <li>
+                        <div class="icon-box"><i class="fas fa-user"></i></div>
+                        <div>
+                            <span class="block text-sm text-muted">Name</span>
+                            <span class="font-bold">Falguni Vashistha</span>
+                        </div>
+                    </li>
+                    <li>
+                        <div class="icon-box"><i class="fas fa-phone-alt"></i></div>
+                        <div>
+                            <span class="block text-sm text-muted">Phone</span>
+                            <span class="font-bold">Provided upon request</span>
+                        </div>
+                    </li>
+                    <li>
+                        <div class="icon-box"><i class="fas fa-envelope"></i></div>
+                        <div>
+                            <span class="block text-sm text-muted">Email</span>
+                            <span class="font-bold">vashishthafalguni@gmail.com</span>
+                        </div>
+                    </li>
+                    <li>
+                        <div class="icon-box"><i class="fas fa-map-marker-alt"></i></div>
+                        <div>
+                            <span class="block text-sm text-muted">Location</span>
+                            <span class="font-bold">Jalandhar, Punjab</span>
+                        </div>
+                    </li>
+                </ul>
+            </div>
+            
+            <div class="contact-form glass-card">
+                <h3 class="mb-4 text-gradient">Send a Message</h3>
+                <form id="contactForm" action="mailto:vashishthafalguni@gmail.com" method="POST" enctype="text/plain">
+                    <div class="input-group">
+                        <i class="fas fa-user input-icon"></i>
+                        <input type="text" id="senderName" placeholder="Your Name" required>
+                    </div>
+                    <div class="input-group">
+                        <i class="fas fa-phone input-icon"></i>
+                        <input type="tel" id="senderPhone" placeholder="Contact Number" required>
+                    </div>
+                    <div class="input-group">
+                        <i class="fas fa-envelope input-icon"></i>
+                        <input type="email" id="senderEmail" placeholder="Email ID" required>
+                    </div>
+                    <div class="input-group align-top">
+                        <i class="fas fa-comment-alt input-icon mt-3"></i>
+                        <textarea id="senderMessage" rows="4" placeholder="Your Message" required></textarea>
+                    </div>
+                    <button type="submit" class="btn primary-btn submit-btn w-full mt-2">
+                        Send Message <i class="fas fa-paper-plane ml-2"></i>
+                    </button>
+                </form>
+            </div>
+        </div>
+    </section>
+
+    <footer class="footer glass-section mt-5">
+        <p class="text-muted">&copy; 2026 Crafted with <i class="fas fa-heart text-primary mx-1"></i> by Falguni Vashistha.</p>
+    </footer>
+
+    <script src="script.js"></script>
+</body>
+</html>
