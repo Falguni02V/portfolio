@@ -149,11 +149,11 @@ body {
     align-items: center;
     justify-content: center;
     text-align: center;
-    transition: opacity 0.8s ease, visibility 0.8s ease;
+    transition: transform 1s cubic-bezier(0.8, 0, 0.2, 1), visibility 1s;
 }
 
 .splash-screen.hidden {
-    opacity: 0;
+    transform: translateY(-100%);
     visibility: hidden;
 }
 
