@@ -152,7 +152,7 @@ body {
     transition: transform 1s cubic-bezier(0.8, 0, 0.2, 1), visibility 1s;
 }
 
-.splash-screen.hidden {
+.splash-screen.slide-out-up {
     transform: translateY(-100%);
     visibility: hidden;
 }

@@ -184,7 +184,7 @@ document.addEventListener("DOMContentLoaded", () => {
         const splash = document.getElementById('splash-screen');
         if (splash) {
             setTimeout(() => {
-                splash.classList.add('hidden');
+                splash.classList.add('slide-out-up');
             }, 3000); // 3 seconds viewing time before continuing
         }
     }
