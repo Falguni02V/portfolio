@@ -119,6 +119,55 @@ document.addEventListener("DOMContentLoaded", () => {
     }
     initTechBackground();
 
+    // Theme Toggle Logic
+    function initThemeToggle() {
+        const themeToggleBtn = document.getElementById('theme-toggle');
+        const body = document.body;
+        const icon = themeToggleBtn ? themeToggleBtn.querySelector('i') : null;
+
+        if (!themeToggleBtn) return;
+
+        // Check localStorage
+        const savedTheme = localStorage.getItem('theme');
+        if (savedTheme === 'light') {
+            body.classList.remove('tech-theme');
+            body.classList.add('light-theme');
+            if(icon) {
+                icon.classList.remove('fa-moon');
+                icon.classList.add('fa-sun');
+            }
+        } else {
+            // default to dark (tech-theme)
+            if(icon) {
+                icon.classList.remove('fa-sun');
+                icon.classList.add('fa-moon');
+            }
+        }
+
+        themeToggleBtn.addEventListener('click', () => {
+            if (body.classList.contains('light-theme')) {
+                // Switch to Dark
+                body.classList.remove('light-theme');
+                body.classList.add('tech-theme');
+                localStorage.setItem('theme', 'dark');
+                if(icon) {
+                    icon.classList.remove('fa-sun');
+                    icon.classList.add('fa-moon');
+                }
+            } else {
+                // Switch to Light
+                body.classList.remove('tech-theme');
+                body.classList.add('light-theme');
+                localStorage.setItem('theme', 'light');
+                if(icon) {
+                    icon.classList.remove('fa-moon');
+                    icon.classList.add('fa-sun');
+                }
+            }
+        });
+    }
+    initThemeToggle();
+
     // Custom Cursor Logic
     function initCustomCursor() {
         const dot = document.querySelector('.cursor-dot');

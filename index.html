@@ -9,6 +9,11 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 </head>
 <body class="tech-theme">
+    <!-- Theme Toggle -->
+    <div class="theme-toggle magnetic" id="theme-toggle">
+        <i class="fas fa-moon"></i>
+    </div>
+
     <!-- Custom Cursor -->
     <div class="cursor-dot"></div>
     <div class="cursor-outline"></div>
@@ -31,42 +36,53 @@
     <!-- Hero Section -->
     <header id="home" class="section hero">
         <div class="hero-content">
-            <div class="profile-pic-container">
-                <img src="assets/profile.jpg.jpeg" alt="Falguni Vashishtha" id="profile-img">
-            </div>
-            <h1 class="name-title" id="animated-name">Falguni Vashishtha</h1>
-            <div class="role-badge">
-                <p class="role-subtitle">Full Stack Developer</p>
-                <div class="role-scanner"></div>
+            <div class="hero-image-col">
+                <div class="profile-pic-container">
+                    <img src="assets/profile.jpg.jpeg" alt="Falguni Vashishtha" id="profile-img">
+                </div>
+                <div class="status-badge"><span class="status-dot"></span> Available for opportunities</div>
             </div>
             
-            <div class="action-buttons">
-                <div class="magnetic"><button id="resume-toggle" class="btn primary-btn">Resume</button></div>
-                <div class="magnetic"><button id="hire-toggle" class="btn secondary-btn">Hire Me</button></div>
-            </div>
+            <div class="hero-text-col">
+                <div class="role-badge">
+                    <p class="role-subtitle">Full Stack Developer</p>
+                    <div class="role-scanner"></div>
+                </div>
+                <h1 class="name-title" id="animated-name">Falguni Vashishtha</h1>
+                <p class="hero-bio">Transforming ideas into scalable web applications. Building modern digital experiences with clean and efficient code.</p>
+                
+                <div class="location-tag">
+                    <i class="fas fa-map-marker-alt"></i> Jalandhar, Punjab, India
+                </div>
 
-            <!-- Toggle Content Areas -->
-            <div id="resume-container" class="toggle-container hidden">
-                <div class="glass-card">
-                    <h3>My Resume</h3>
-                    <p class="text-muted mt-2 mb-3">Your resume is ready to be loaded here. Please add your resume PDF to the <strong>assets</strong> folder.</p>
-                    <a href="assets/resume.pdf.pdf" target="_blank" class="btn small-btn primary-btn mt-2"><i class="fas fa-external-link-alt mr-1"></i> View Resume</a>
-                    <a href="assets/resume.pdf.pdf" download class="btn small-btn outline mt-2 ml-2"><i class="fas fa-download mr-1"></i> Download</a>
+                <div class="action-buttons">
+                    <div class="magnetic"><button id="resume-toggle" class="btn primary-btn"><i class="fas fa-download mr-1"></i> Resume</button></div>
+                    <div class="magnetic"><button id="hire-toggle" class="btn secondary-btn">Hire Me</button></div>
+                </div>
+
+                <div class="social-links">
+                    <div class="magnetic"><a href="https://www.linkedin.com/in/falgunivashishtha02" target="_blank" class="social-icon" title="LinkedIn"><i class="fab fa-linkedin-in"></i></a></div>
+                    <div class="magnetic"><a href="https://github.com/Falguni02V" target="_blank" class="social-icon" title="GitHub"><i class="fab fa-github"></i></a></div>
+                    <div class="magnetic"><a href="mailto:vashishthafalguni@gmail.com" class="social-icon" title="Email"><i class="fas fa-envelope"></i></a></div>
                 </div>
             </div>
+        </div>
 
-            <div id="hire-container" class="toggle-container hidden">
-                <div class="glass-card">
-                    <h3>Let's Work Together</h3>
-                    <img src="assets/hire_me_graphic.png" alt="Hire Me" class="preview-img">
-                    <p class="mt-2 text-muted">Available for exciting opportunities. Get in touch via the <a href="#contact" class="link-styled">contact section</a>.</p>
-                </div>
+        <!-- Toggle Content Areas -->
+        <div id="resume-container" class="toggle-container hidden w-full mt-5 text-center">
+            <div class="glass-card">
+                <h3>My Resume</h3>
+                <p class="text-muted mt-2 mb-3">Your resume is ready to be loaded here. Please view or download below.</p>
+                <a href="assets/resume.pdf.pdf" target="_blank" class="btn small-btn primary-btn mt-2"><i class="fas fa-external-link-alt mr-1"></i> View Resume</a>
+                <a href="assets/resume.pdf.pdf" download class="btn small-btn outline mt-2 ml-2"><i class="fas fa-download mr-1"></i> Download</a>
             </div>
+        </div>
 
-            <div class="social-links">
-                <div class="magnetic"><a href="https://www.linkedin.com/in/falgunivashishtha02" target="_blank" class="social-icon" title="LinkedIn"><i class="fab fa-linkedin-in"></i></a></div>
-                <div class="magnetic"><a href="https://github.com/Falguni02V" target="_blank" class="social-icon" title="GitHub"><i class="fab fa-github"></i></a></div>
-                <div class="magnetic"><a href="mailto:vashishthafalguni@gmail.com" class="social-icon" title="Email"><i class="fas fa-envelope"></i></a></div>
+        <div id="hire-container" class="toggle-container hidden w-full mt-5 text-center">
+            <div class="glass-card">
+                <h3>Let's Work Together</h3>
+                <img src="assets/hire_me_graphic.png" alt="Hire Me" class="preview-img mb-3" style="max-width: 200px;">
+                <p class="mt-2 text-muted">Available for exciting opportunities. Get in touch via the <a href="#contact" class="link-styled">contact section</a>.</p>
             </div>
         </div>
     </header>
@@ -196,76 +212,46 @@
         </div>
 
         <h3 class="subsection-title subtitle-glow mt-4">Certifications</h3>
-        <div class="certs-container reveal">
+        <div class="certs-grid reveal">
             <!-- Cert 1 -->
-            <div class="cert-item">
-                <button class="cert-toggle glass-card btn-block p-3" data-target="cert1">
-                    <div>
-                        <span class="font-bold block">Training on C++ Programming : OOPs and DSA</span>
-                        <span class="text-sm text-muted">CSE pathshala</span>
-                    </div>
-                    <i class="fas fa-plus"></i>
-                </button>
-                <div id="cert1" class="cert-content hidden glass-card mt-2">
-                    <p class="mb-2">View Certificate:</p>
-                    <a href="https://drive.google.com/file/d/1cMDuoph31VwSs9KrHmrtb-lQ49lIHmkK/view?usp=sharing" target="_blank" class="btn small-btn primary-btn">Open Document</a>
+            <div class="glass-card cert-card hover-lift">
+                <div class="cert-info">
+                    <h4 class="font-bold">Training on C++ Programming</h4>
+                    <p class="text-sm text-muted">CSE pathshala</p>
                 </div>
+                <a href="https://drive.google.com/file/d/1cMDuoph31VwSs9KrHmrtb-lQ49lIHmkK/view?usp=sharing" target="_blank" class="btn small-btn primary-btn mt-3 w-full flex-center"><i class="fas fa-external-link-alt mr-2"></i> View Certificate</a>
             </div>
             <!-- Cert 2 -->
-            <div class="cert-item">
-                <button class="cert-toggle glass-card btn-block p-3" data-target="cert2">
-                    <div>
-                        <span class="font-bold block">Social Networks</span>
-                        <span class="text-sm text-muted">Swayam NPTEL</span>
-                    </div>
-                    <i class="fas fa-plus"></i>
-                </button>
-                <div id="cert2" class="cert-content hidden glass-card mt-2">
-                    <p class="mb-2">View Certificate:</p>
-                    <a href="https://drive.google.com/file/d/12Z5h-qSoaCBgoqF2f7DKJjATe7ngU-EM/view?usp=sharing" target="_blank" class="btn small-btn primary-btn">Open Document</a>
+            <div class="glass-card cert-card hover-lift">
+                <div class="cert-info">
+                    <h4 class="font-bold">Social Networks</h4>
+                    <p class="text-sm text-muted">Swayam NPTEL</p>
                 </div>
+                <a href="https://drive.google.com/file/d/12Z5h-qSoaCBgoqF2f7DKJjATe7ngU-EM/view?usp=sharing" target="_blank" class="btn small-btn primary-btn mt-3 w-full flex-center"><i class="fas fa-external-link-alt mr-2"></i> View Certificate</a>
             </div>
             <!-- Cert 3 -->
-            <div class="cert-item">
-                <button class="cert-toggle glass-card btn-block p-3" data-target="cert3">
-                    <div>
-                        <span class="font-bold block">Computational Theory</span>
-                        <span class="text-sm text-muted">Infosys</span>
-                    </div>
-                    <i class="fas fa-plus"></i>
-                </button>
-                <div id="cert3" class="cert-content hidden glass-card mt-2">
-                    <p class="mb-2">View Certificate:</p>
-                    <a href="https://drive.google.com/file/d/16Wj90tClJbt4Fn2PMnnFGQ6g8WTVa8zm/view?usp=sharing" target="_blank" class="btn small-btn primary-btn">Open Document</a>
+            <div class="glass-card cert-card hover-lift">
+                <div class="cert-info">
+                    <h4 class="font-bold">Computational Theory</h4>
+                    <p class="text-sm text-muted">Infosys</p>
                 </div>
+                <a href="https://drive.google.com/file/d/16Wj90tClJbt4Fn2PMnnFGQ6g8WTVa8zm/view?usp=sharing" target="_blank" class="btn small-btn primary-btn mt-3 w-full flex-center"><i class="fas fa-external-link-alt mr-2"></i> View Certificate</a>
             </div>
             <!-- Cert 4 -->
-            <div class="cert-item">
-                <button class="cert-toggle glass-card btn-block p-3" data-target="cert4">
-                    <div>
-                        <span class="font-bold block">ChatGPT-4 Prompt Engineering</span>
-                        <span class="text-sm text-muted">Infosys</span>
-                    </div>
-                    <i class="fas fa-plus"></i>
-                </button>
-                <div id="cert4" class="cert-content hidden glass-card mt-2">
-                    <p class="mb-2">View Certificate:</p>
-                    <a href="https://drive.google.com/file/d/1jQpXGRoeQaO2BM_eBt8ziES4g7zmUdXy/view?usp=sharing" target="_blank" class="btn small-btn primary-btn">Open Document</a>
+            <div class="glass-card cert-card hover-lift">
+                <div class="cert-info">
+                    <h4 class="font-bold">ChatGPT-4 Prompt Engineering</h4>
+                    <p class="text-sm text-muted">Infosys</p>
                 </div>
+                <a href="https://drive.google.com/file/d/1jQpXGRoeQaO2BM_eBt8ziES4g7zmUdXy/view?usp=sharing" target="_blank" class="btn small-btn primary-btn mt-3 w-full flex-center"><i class="fas fa-external-link-alt mr-2"></i> View Certificate</a>
             </div>
             <!-- Cert 5 -->
-            <div class="cert-item">
-                <button class="cert-toggle glass-card btn-block p-3" data-target="cert5">
-                    <div>
-                        <span class="font-bold block">Build Generative AI Apps</span>
-                        <span class="text-sm text-muted">Infosys</span>
-                    </div>
-                    <i class="fas fa-plus"></i>
-                </button>
-                <div id="cert5" class="cert-content hidden glass-card mt-2">
-                    <p class="mb-2">View Certificate:</p>
-                    <a href="https://drive.google.com/file/d/1FtMai3Rbwx_UnFfxSeKGfnv_zBxWbDVl/view?usp=sharing" target="_blank" class="btn small-btn primary-btn">Open Document</a>
+            <div class="glass-card cert-card hover-lift">
+                <div class="cert-info">
+                    <h4 class="font-bold">Build Generative AI Apps</h4>
+                    <p class="text-sm text-muted">Infosys</p>
                 </div>
+                <a href="https://drive.google.com/file/d/1FtMai3Rbwx_UnFfxSeKGfnv_zBxWbDVl/view?usp=sharing" target="_blank" class="btn small-btn primary-btn mt-3 w-full flex-center"><i class="fas fa-external-link-alt mr-2"></i> View Certificate</a>
             </div>
         </div>
     </section>
