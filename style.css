@@ -11,6 +11,8 @@
     --glass-border: rgba(255, 255, 255, 0.12);
     --border-radius: 20px;
     --font-main: 'Outfit', sans-serif;
+    --glow-color: rgba(255, 255, 255, 0.2);
+    --shadow-color: rgba(0, 0, 0, 0.8);
 }
 
 body.light-theme {
@@ -24,6 +26,8 @@ body.light-theme {
     --secondary-glow: rgba(16, 185, 129, 0.2);
     --glass-bg: rgba(255, 255, 255, 0.85);
     --glass-border: rgba(0, 0, 0, 0.08);
+    --glow-color: rgba(0, 0, 0, 0.1);
+    --shadow-color: rgba(0, 0, 0, 0.15);
 }
 
 body.light-theme .tech-theme::before {
@@ -132,8 +136,57 @@ body {
     transition: opacity 0.4s ease;
 }
 
-body.light-theme #tech-canvas {
+/* Splash Screen */
+.splash-screen {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    background-color: var(--bg-color);
+    z-index: 99999;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    transition: opacity 0.8s ease, visibility 0.8s ease;
+}
+
+.splash-screen.hidden {
     opacity: 0;
+    visibility: hidden;
+}
+
+.splash-content {
+    padding: 0 20px;
+    animation: splashFadeIn 1s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+
+.splash-title {
+    font-size: 3.5rem;
+    font-weight: 800;
+    color: var(--text-main);
+    margin-bottom: 20px;
+}
+
+.splash-title span {
+    background: linear-gradient(to right, var(--primary), var(--secondary));
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
+
+.splash-subtitle {
+    font-size: 1.5rem;
+    color: var(--text-muted);
+    max-width: 800px;
+    margin: 0 auto;
+    line-height: 1.6;
+}
+
+@keyframes splashFadeIn {
+    0% { opacity: 0; transform: translateY(30px); filter: blur(10px); }
+    100% { opacity: 1; transform: translateY(0); filter: blur(0); }
 }
 
 .tech-theme::before {
@@ -522,7 +575,7 @@ body.light-theme #tech-canvas {
     font-weight: 900;
     margin-bottom: 20px;
     letter-spacing: -2px;
-    color: #fff;
+    color: var(--text-main);
     display: flex;
     justify-content: center;
     flex-wrap: wrap;
@@ -599,7 +652,7 @@ body.light-theme #tech-canvas {
     font-weight: 400;
     text-transform: uppercase;
     letter-spacing: 2px;
-    text-shadow: 0 0 10px rgba(255,255,255,0.2);
+    text-shadow: 0 0 10px var(--glow-color);
     animation: pulseRole 3s infinite alternate;
 }
 

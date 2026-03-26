@@ -31,6 +31,7 @@ document.addEventListener("DOMContentLoaded", () => {
                 this.vy = (Math.random() - 0.5) * 0.5;
                 this.size = Math.random() * 2 + 1;
                 this.density = (Math.random() * 30) + 1;
+                this.char = ['<', '>', '{', '}', ';', '/', '()', '=>'][Math.floor(Math.random() * 8)];
             }
 
             update() {
@@ -71,10 +72,17 @@ document.addEventListener("DOMContentLoaded", () => {
             }
 
             draw() {
-                ctx.fillStyle = 'rgba(0, 242, 255, 0.5)';
-                ctx.beginPath();
-                ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
-                ctx.fill();
+                const isLight = document.body.classList.contains('light-theme');
+                if (isLight) {
+                    ctx.fillStyle = `rgba(139, 92, 246, ${1 - this.size / 10})`;
+                    ctx.font = `${this.size * 5 + 8}px monospace`;
+                    ctx.fillText(this.char, this.x, this.y);
+                } else {
+                    ctx.fillStyle = 'rgba(0, 242, 255, 0.5)';
+                    ctx.beginPath();
+                    ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
+                    ctx.fill();
+                }
             }
         }
 
@@ -101,7 +109,10 @@ document.addEventListener("DOMContentLoaded", () => {
                     const dist = Math.sqrt(dx * dx + dy * dy);
 
                     if (dist < connectionDistance) {
-                        ctx.strokeStyle = `rgba(0, 242, 255, ${1 - dist / connectionDistance})`;
+                        const isLight = document.body.classList.contains('light-theme');
+                        ctx.strokeStyle = isLight 
+                            ? `rgba(139, 92, 246, ${0.4 - dist / (connectionDistance * 2.5)})` 
+                            : `rgba(0, 242, 255, ${1 - dist / connectionDistance})`;
                         ctx.lineWidth = 0.5;
                         ctx.beginPath();
                         ctx.moveTo(p1.x, p1.y);
@@ -129,18 +140,18 @@ document.addEventListener("DOMContentLoaded", () => {
 
         // Check localStorage
         const savedTheme = localStorage.getItem('theme');
-        if (savedTheme === 'light') {
-            body.classList.remove('tech-theme');
-            body.classList.add('light-theme');
-            if(icon) {
-                icon.classList.remove('fa-moon');
-                icon.classList.add('fa-sun');
-            }
-        } else {
-            // default to dark (tech-theme)
+        if (savedTheme === 'dark') {
+            body.classList.remove('light-theme');
+            body.classList.add('tech-theme');
             if(icon) {
                 icon.classList.remove('fa-sun');
                 icon.classList.add('fa-moon');
+            }
+        } else {
+            // default to light
+            if(icon) {
+                icon.classList.remove('fa-moon');
+                icon.classList.add('fa-sun');
             }
         }
 
@@ -167,6 +178,17 @@ document.addEventListener("DOMContentLoaded", () => {
         });
     }
     initThemeToggle();
+
+    // Splash Screen Logic
+    function initSplashScreen() {
+        const splash = document.getElementById('splash-screen');
+        if (splash) {
+            setTimeout(() => {
+                splash.classList.add('hidden');
+            }, 3000); // 3 seconds viewing time before continuing
+        }
+    }
+    initSplashScreen();
 
     // Custom Cursor Logic
     function initCustomCursor() {
