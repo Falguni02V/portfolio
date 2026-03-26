@@ -296,8 +296,8 @@ document.addEventListener("DOMContentLoaded", () => {
                 const span = document.createElement('span');
                 span.textContent = char;
                 span.className = 'letter';
-                // Calculate delay based on word and char index
-                const delay = (wordIndex * 5 + charIndex) * 0.1;
+                // Calculate delay based on word and char index, accounting for splash and profile image animation
+                const delay = 4.6 + (wordIndex * 5 + charIndex) * 0.1;
                 span.style.animationDelay = `${delay}s`;
                 wordSpan.appendChild(span);
             });

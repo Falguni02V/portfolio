@@ -208,7 +208,7 @@ body {
     position: absolute;
     background: white;
     border-radius: 50%;
-    box-shadow: 0 0 10px #fff, 0 0 20px var(--primary);
+    box-shadow: 0 0 10px var(--glow-color), 0 0 20px var(--primary);
     opacity: 0;
     animation: twinkle linear infinite;
 }
@@ -340,7 +340,7 @@ body {
     font-weight: 900;
     margin-bottom: 2.5rem;
     text-align: center;
-    background: linear-gradient(135deg, #fff, var(--primary));
+    background: linear-gradient(135deg, var(--text-main), var(--primary));
     -webkit-background-clip: text;
     background-clip: text;
     -webkit-text-fill-color: transparent;
@@ -375,7 +375,7 @@ body {
     margin: 40px 0 30px;
     text-align: center;
     color: var(--text-main);
-    text-shadow: 0 0 15px rgba(255,255,255,0.2);
+    text-shadow: 0 0 15px var(--glow-color);
     animation: simplePulse 2s infinite alternate;
 }
 
@@ -415,14 +415,14 @@ body {
 }
 
 .secondary-btn {
-    background: rgba(255,255,255,0.05);
-    border: 1px solid rgba(255,255,255,0.2);
+    background: var(--glass-bg);
+    border: 1px solid var(--glass-border);
     color: var(--text-main);
 }
 
 .secondary-btn:hover {
-    background: rgba(255,255,255,0.1);
-    border-color: #fff;
+    background: var(--glass-bg);
+    border-color: var(--primary);
     transform: translateY(-3px);
 }
 
@@ -437,8 +437,8 @@ body {
     color: var(--text-muted);
 }
 .outline:hover {
-    color: #fff;
-    border-color: #fff;
+    color: var(--text-main);
+    border-color: var(--text-main);
 }
 
 /* Hero Section */
@@ -534,6 +534,9 @@ body {
     gap: 10px;
     z-index: 10;
     box-shadow: 0 6px 20px rgba(0,0,0,0.15);
+    opacity: 0;
+    animation: profilePop 0.8s cubic-bezier(0.175, 0.885, 0.32, 1.275) forwards;
+    animation-delay: 3.9s;
 }
 
 .status-dot {
@@ -559,6 +562,14 @@ body {
     padding: 4px;
     background: linear-gradient(135deg, var(--primary), var(--secondary));
     box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+    opacity: 0;
+    transform: scale(0.8);
+    animation: profilePop 0.8s cubic-bezier(0.175, 0.885, 0.32, 1.275) forwards;
+    animation-delay: 3.6s;
+}
+
+@keyframes profilePop {
+    to { opacity: 1; transform: scale(1); }
 }
 
 .profile-pic-container img {
@@ -644,6 +655,12 @@ body {
     0% { transform: translateY(0px); filter: drop-shadow(0 0 5px rgba(6,182,212,0.5)); }
     100% { transform: translateY(-10px); filter: drop-shadow(0 5px 25px rgba(139,92,246,0.8)); }
 }
+
+/* Custom Sequential Hero Animations */
+.hero-reveal-1 { opacity: 0; animation: splashFadeIn 0.8s cubic-bezier(0.16, 1, 0.3, 1) forwards; animation-delay: 5.5s; }
+.hero-reveal-2 { opacity: 0; animation: splashFadeIn 0.8s cubic-bezier(0.16, 1, 0.3, 1) forwards; animation-delay: 5.7s; }
+.hero-reveal-3 { opacity: 0; animation: splashFadeIn 0.8s cubic-bezier(0.16, 1, 0.3, 1) forwards; animation-delay: 5.9s; }
+.hero-reveal-4 { opacity: 0; animation: splashFadeIn 0.8s cubic-bezier(0.16, 1, 0.3, 1) forwards; animation-delay: 6.1s; }
 
 .role-subtitle {
     font-size: 1.8rem;
